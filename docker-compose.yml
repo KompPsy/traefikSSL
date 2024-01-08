@@ -21,25 +21,25 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /home/coreai/traefik/data/:/etc/traefik
-      - /home/coreai/traefik/data/traefik.yml:/etc/traefik/traefik.yml:ro
-      - /home/coreai/traefik/data/acme.json:/etc/traefik/acme.json
-      - /home/coreai/traefik/data/config/config.yml:/etc/traefik/config/config.yml:ro
+      - /home/<username>/traefik/data/:/etc/traefik
+      - /home/<username>/traefik/data/traefik.yml:/etc/traefik/traefik.yml:ro
+      - /home/<username>/traefik/data/acme.json:/etc/traefik/acme.json
+      - /home/<username>/traefik/data/config/config.yml:/etc/traefik/config/config.yml:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.correlatetechnologies.com`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=coreai:$$apr1$$CTZWRhOA$$f1CVoG3AYiHhTRJscJLTv1"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-dashboard.local.example.com`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=<username>:<password-hash>"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
       - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.correlatetechnologies.com`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.local.example.com`)"
       - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.correlatetechnologies.com"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.correlatetechnologies.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.example.com"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.example.com"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 networks:
   proxy:
