@@ -17,7 +17,7 @@ services:
       - CF_DNS_API_TOKEN=<SAMPLE-TOKEN>
       #To create one, use this Documentation by Cloudflare
       # https://developers.cloudflare.com/fundamentals/api/get-started/create-token/ 
-        #- CF_API_KEY=<Legacy Global API Key
+        #- CF_API_KEY=<Legacy Global API Key>
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
